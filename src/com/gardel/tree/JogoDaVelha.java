@@ -7,12 +7,20 @@ public class JogoDaVelha {
 	public char[] tabuleiro = {' ',' ',' ',
 							   ' ',' ',' ',
 							   ' ',' ',' '};
-	/*
-	 * 0 | 1 | 2
-	 *---+---+---
-	 * 3 | 4 | 5
-	 *---+---+---
-	 * 6 | 7 | 8
+	/* Posições dos caracteres na array
+	 * 
+	 *		  0 | 1 | 2
+	 *		 ---+---+---
+	 *		  3 | 4 | 5
+	 * 		 ---+---+---
+	 *		  6 | 7 | 8
+	 * 
+	 */
+	
+	/**
+	 * Método que calcula se houve um vencedor/empate no jogo da velha.
+	 * 
+	 * @return [-1|0|1] Se o jogador 'O' ganhar (1), caso o jogador 'X' ganhar (-1) e se empate (0)
 	 */
 	public int getStatus() {
 		char c1 = tabuleiro[0];
@@ -50,12 +58,23 @@ public class JogoDaVelha {
 		int status = getStatus();
 		return  status != 0 || isEmpate();
 	}
-	
+	/* Construtores */
 	public JogoDaVelha() {};
 	public JogoDaVelha(JogoDaVelha jdv) {
 		for(int i = 0 ; i < 9 ; i++) 
 			this.tabuleiro[i] = jdv.tabuleiro[i];
 	};
+	
+	public String toString() {
+		return String.format(" %c | %c | %c \n"+
+							 "---+---+---\n"+
+							 " %c | %c | %c \n"+
+							 "---+---+---\n"+
+							 " %c | %c | %c ", tabuleiro[0],tabuleiro[1],tabuleiro[2],tabuleiro[3],tabuleiro[4],tabuleiro[5],tabuleiro[6],tabuleiro[7],tabuleiro[8]);
+	}
+	
+	/* Getters e Setters */
+	
 	
 	public void setX(int pos) {
 		if(tabuleiro[pos]!=' ') return;
@@ -72,13 +91,5 @@ public class JogoDaVelha {
 			if(tabuleiro[i]==' ') positions.add(i);
 		}
 		return positions;
-	}
-	
-	public String toString() {
-		return String.format(" %c | %c | %c \n"+
-							 "---+---+---\n"+
-							 " %c | %c | %c \n"+
-							 "---+---+---\n"+
-							 " %c | %c | %c ", tabuleiro[0],tabuleiro[1],tabuleiro[2],tabuleiro[3],tabuleiro[4],tabuleiro[5],tabuleiro[6],tabuleiro[7],tabuleiro[8]);
 	}
 }

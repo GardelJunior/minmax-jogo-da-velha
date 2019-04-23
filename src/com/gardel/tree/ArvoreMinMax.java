@@ -16,7 +16,7 @@ public class ArvoreMinMax {
 	}
 	
 	/**
-	 * Função recursiva que cria a árvore de decisão usando o algoritmo do minMax
+	 * Método recursivo que cria a árvore de decisão usando o algoritmo do minMax
 	 * @param jogo : O tabuleiro
 	 * @param profundidade : A profundidade do nó, ela influencia no valor do nó.
 	 * @param max : [True|False] Se é maximizador(True) ou minimizador(False)
@@ -25,7 +25,7 @@ public class ArvoreMinMax {
 	 */
 	private static Jogada solve(JogoDaVelha jogo, int profundidade, boolean max, int vez) {
 		if(jogo.isTerminal()) {
-			return new Jogada(jogo,jogo.getStatus()*100 - profundidade);
+			return new Jogada(jogo.getStatus()*100 - profundidade);
 		}
 		if(max) {
 			int maximo = Integer.MIN_VALUE;

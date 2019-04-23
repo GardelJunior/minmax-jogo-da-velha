@@ -8,4 +8,9 @@ public class Jogada {
 		this.tabuleiro = tabuleiro;
 		this.pontuacao = pontuacao;
 	}
+	
+	public Jogada(int pontuacao) {
+		this.tabuleiro = null;
+		this.pontuacao = pontuacao;
+	}
 }
