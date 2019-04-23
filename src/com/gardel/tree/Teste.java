@@ -16,16 +16,15 @@ public class Teste {
 	public static void main(String[] args) {
 		JFrame j = new JFrame("Jogo da Velha");
 		j.setLayout(null);
-		j.setMinimumSize(new Dimension(400, 400));
-		j.setPreferredSize(new Dimension(400, 400));
-		j.setSize(new Dimension(400, 400));
-		int width = j.getWidth()/3;
-		int height = j.getHeight()/3;
+		j.getContentPane().setPreferredSize(new Dimension(400, 400));
+		j.getContentPane().setSize(new Dimension(400, 400));
+		int width = j.getContentPane().getWidth()/3;
+		int height = j.getContentPane().getHeight()/3;
 		for(int i = 0 ; i < 9 ; i++) {
 			JButton btn = new JButton(" ");
 			buttons[i] = btn;
 			btn.setFont(new Font("Arial",Font.BOLD,25));
-			j.add(btn);
+			j.getContentPane().add(btn);
 			btn.setBounds((i%3) * width, (i/3) * height, width, height);
 			btn.setActionCommand(String.valueOf(i));
 			btn.addActionListener(new ActionListener() {
@@ -36,14 +35,14 @@ public class Teste {
 					}else {
 						int valor = Integer.parseInt(e.getActionCommand());
 						if(jdv.tabuleiro[valor] != ' ') return;
-						jdv.setX(valor % 3, valor / 3);
+						jdv.setX(valor);
 						status = jdv.getStatus();
-						showMessage(jdv.getStatus(), jdv.isEmpate());
+						if(showMessage(jdv.getStatus(), jdv.isEmpate())) return;
 						jdv = ArvoreMinMax.solve(jdv, false, 1);
 						for(int i = 0 ; i < 9 ; i++) {
 							buttons[i].setText(String.valueOf(jdv.tabuleiro[i]));
 						}
-						showMessage(jdv.getStatus(), jdv.isEmpate());
+						if(showMessage(jdv.getStatus(), jdv.isEmpate())) return;
 					}
 				}
 			});
@@ -60,7 +59,7 @@ public class Teste {
 			if(jdv.isEmpate()) {
 				msg = "Empate! Deseja jogar denovo?";
 			}else {
-				msg = ((status==1)? "O Jogador X Ganhou! <br>" : "O Jogador O Ganhou! <br>")+" Deseja jogar denovo?";
+				msg = ((status==1)? "O Jogador [ X ] Ganhou! <br>" : "O Jogador [ O ] Ganhou! <br>")+" Deseja jogar denovo?";
 			}
 			int r = JOptionPane.showConfirmDialog(null, msg.replace("<br>", "\n"),"Empate!",JOptionPane.YES_NO_OPTION);
 			if(r == JOptionPane.OK_OPTION) {
