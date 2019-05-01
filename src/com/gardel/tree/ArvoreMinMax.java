@@ -12,7 +12,7 @@ public class ArvoreMinMax {
 	 * @return Intância do JogoDaVelha com a melhor jogada inserida.
 	 */
 	public static JogoDaVelha solve(JogoDaVelha jogo, boolean max, int vez) {
-		return solve(jogo, 0, false, 1).tabuleiro;
+		return solve(jogo, 0, max, vez).tabuleiro;
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class ArvoreMinMax {
 	 */
 	private static Jogada solve(JogoDaVelha jogo, int profundidade, boolean max, int vez) {
 		if(jogo.isTerminal()) {
-			return new Jogada(jogo.getStatus()*100 - profundidade);
+			return new Jogada(jogo.getStatus()*100 + (max? profundidade : -profundidade));
 		}
 		if(max) {
 			int maximo = Integer.MIN_VALUE;

@@ -1,25 +1,23 @@
 package com.gardel.test;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
-import com.gardel.tree.ArvoreMinMax;
-import com.gardel.tree.JogoDaVelha;
+import com.gardel.tree.*;
 
 /**
  * A classe Teste contém a main, nela uma janela é instanciada para fornecer ao usuário
  * uma interface gráfica para jogar o Jogo da Velha.
  * 
+ * Neste, o computador inicia
+ * 
  * @author Gardel Júnior N 388691 UFC - Russas
  *
  */
-public class Teste {
+public class TesteBotVsPlayer {
 	
 	/* Variáveis estáticas */
 	static JogoDaVelha jdv = new JogoDaVelha();
@@ -57,7 +55,7 @@ public class Teste {
 						if(jdv.tabuleiro[valor] != ' ') {
 							return;
 						}else {
-							jdv.setX(valor);
+							jdv.setO(valor);
 						}
 						
 						/* Apos a jogada checa se alguem ganhou novamente */
@@ -67,7 +65,7 @@ public class Teste {
 						if(showMessage(jdv.getStatus(), jdv.isEmpate())) return;
 						
 						/* Executa o minmax para o Bot */
-						jdv = ArvoreMinMax.solve(jdv, false, 1);
+						jdv = ArvoreMinMax.solve(jdv, true, 0);
 						
 						/* Atualiza a interface da jogada feita pelo Bot */
 						for(int i = 0 ; i < 9 ; i++) {
@@ -84,6 +82,13 @@ public class Teste {
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		j.setLocationRelativeTo(null);
 		j.setVisible(true);
+		
+		jdv.setX(new Random().nextInt(9));
+		
+		/* Atualiza a interface da jogada feita pelo Bot */
+		for(int i = 0 ; i < 9 ; i++) {
+			buttons[i].setText(String.valueOf(jdv.tabuleiro[i]));
+		}
 	}
 	
 	/**
@@ -103,6 +108,9 @@ public class Teste {
 			int r = JOptionPane.showConfirmDialog(null, msg.replace("<br>", "\n"),"Empate!",JOptionPane.YES_NO_OPTION);
 			if(r == JOptionPane.OK_OPTION) {
 				jdv = new JogoDaVelha();
+				jdv.setX(new Random().nextInt(9));
+				
+				/* Atualiza a interface da jogada feita pelo Bot */
 				for(int i = 0 ; i < 9 ; i++) {
 					buttons[i].setText(String.valueOf(jdv.tabuleiro[i]));
 				}
